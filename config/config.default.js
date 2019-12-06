@@ -23,8 +23,32 @@ module.exports = appInfo => {
     // myAppName: 'egg',
   };
 
+  // mysql配置
+  const mysqlConfig = {
+    mysql: {
+      // 单数据库信息配置
+      client: {
+        // host
+        host: '106.15.186.195',
+        // 端口号
+        port: '3306',
+        // 用户名
+        user: 'an_csr',
+        // 密码
+        password: 'csr2019',
+        // 数据库名
+        database: 'fun_job_dev',
+      },
+      // 是否加载到 app 上，默认开启
+      app: true,
+      // 是否加载到 agent 上，默认关闭
+      agent: false,
+    },
+  };
+
   return {
     ...config,
     ...userConfig,
+    ...mysqlConfig,
   };
 };
