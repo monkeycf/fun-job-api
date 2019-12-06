@@ -8,15 +8,23 @@ const { Controller } = require('egg');
  * 2019/12/06
  */
 class BaseController extends Controller {
-  successHandler(data) {
-    this.ctx.body = {
+  async beginTransaction() {
+    this.ctx.conn = await this.app.mysql.beginTransaction();
+  }
+
+  async successHandler(data) {
+    const { ctx } = this;
+    await ctx.conn.commit();
+    ctx.body = {
       code: 1,
       data,
     };
   }
 
-  errorHandler(msg) {
-    this.ctx.body = {
+  async errorHandler(msg) {
+    const { ctx } = this;
+    await ctx.conn.rollback();
+    ctx.body = {
       code: -1,
       msg,
     };
