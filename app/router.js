@@ -5,5 +5,7 @@
  */
 module.exports = app => {
   const { router, controller } = app;
-  router.get('/', controller.home.index);
+  // user
+  const userRouter = '/api/v1/user';
+  router.post(`${userRouter}/register`, controller.user.register); // 注册
 };
