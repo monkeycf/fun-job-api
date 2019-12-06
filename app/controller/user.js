@@ -1,6 +1,7 @@
 'use strict';
 
 const BaseController = require('../core/base_controller');
+const helper = require('../public/helper');
 
 /**
  * app/controller/user.js
@@ -16,9 +17,9 @@ class UserController extends BaseController {
       const { user } = ctx.service;
 
       await this.beginTransaction();
-      await user.countPhone(body);
-      await user.createUser(body);
-      const { id: userId } = await user.queryUserIdByPhone(body);
+      await user.countPhone(body); // 判断手机号是否已注册
+      await user.createUser(body); // 注册用户
+      const { id: userId } = await user.queryUserIdByPhone(body); // 查询userId
 
       await this.successHandler({ userId });
     } catch (e) {
@@ -34,9 +35,9 @@ class UserController extends BaseController {
       const { user } = ctx.service;
 
       await this.beginTransaction();
-      const userInfo = await user.loginByPassword(body);
+      const userInfo = await user.loginByPassword(body); // 密码登录
 
-      await this.successHandler(this.toHumpObject(userInfo));
+      await this.successHandler(helper.toHumpObject(userInfo));
     } catch (e) {
       await this.errorHandler(e);
     }

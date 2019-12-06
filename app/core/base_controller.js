@@ -34,38 +34,6 @@ class BaseController extends Controller {
     msg = msg || 'not found';
     this.ctx.throw(404, msg);
   }
-
-  // 下划线转换驼峰
-  toHump(line) {
-    return line.replace(/\_(\w)/g, (a, l) => l.toUpperCase());
-  }
-
-  // 驼峰转下划线
-  toLine(hump) {
-    return hump.replace(/([A-Z]|\d)/g, (a, l) => `_${l.toLowerCase()}`);
-  }
-
-  toHumpObject(obj) {
-    const newObj = {};
-    for (const k in obj) {
-      if (obj.hasOwnProperty(k)) {
-        newObj[this.toHump(k)] = obj[k];
-      }
-    }
-    obj = null;
-    return newObj;
-  }
-
-  toLineObject(obj) {
-    const newObj = {};
-    for (const k in obj) {
-      if (obj.hasOwnProperty(k)) {
-        newObj[this.toLine(k)] = obj[k];
-      }
-    }
-    obj = null;
-    return newObj;
-  }
 }
 
 module.exports = BaseController;
