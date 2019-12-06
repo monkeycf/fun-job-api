@@ -18,6 +18,19 @@ module.exports = appInfo => {
   // add your middleware config here
   config.middleware = [];
 
+  // 跨域设置
+  // 关闭csrf
+  config.security = {
+    csrf: {
+      enable: false,
+    },
+  };
+  // 配置cors
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET,HEAD,PUT,OPTIONS,POST,DELETE,PATCH',
+  };
+
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
