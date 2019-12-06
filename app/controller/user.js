@@ -25,6 +25,22 @@ class UserController extends BaseController {
       await this.errorHandler(e);
     }
   }
+
+  // 用户登录
+  async login() {
+    try {
+      const { ctx } = this;
+      const { body } = ctx.request;
+      const { user } = ctx.service;
+
+      await this.beginTransaction();
+      const userInfo = await user.loginByPassword(body);
+
+      await this.successHandler(this.toHumpObject(userInfo));
+    } catch (e) {
+      await this.errorHandler(e);
+    }
+  }
 }
 
 module.exports = UserController;

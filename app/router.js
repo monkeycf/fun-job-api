@@ -7,5 +7,7 @@ module.exports = app => {
   const { router, controller } = app;
   // user
   const userRouter = '/api/v1/user';
-  router.post(`${userRouter}/register`, controller.user.register); // 注册
+  const { user: userController } = controller;
+  router.post(`${userRouter}/register`, userController.register); // 注册
+  router.post(`${userRouter}/login`, userController.login); // 登录
 };

@@ -36,6 +36,15 @@ class UserService extends Service {
     const userInfo = await this.ctx.conn.query('SELECT id FROM csr_fj_user WHERE phone = ?;', [ phone ]);
     return userInfo[0];
   }
+
+  // 验证登录密码
+  async loginByPassword({ phone, pwd }) {
+    const userInfo = await this.ctx.conn.query('SELECT * FROM csr_fj_user WHERE `phone` = ? AND `password` = ?;', [ phone, pwd ]);
+    if (userInfo.length === 0) {
+      throw '用户手机号或密码错误';
+    }
+    return userInfo[0];
+  }
 }
 
 module.exports = UserService;
