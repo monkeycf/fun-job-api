@@ -13,6 +13,12 @@ class TopicService extends Service {
     const data = await this.ctx.conn.query('INSERT csr_fj_topic (title,complexity,release_user,label) VALUES (?,?,?,?);', [ title, complexity, releaseUser, label ]);
     return { topicId: data.insertId };
   }
+
+  // 查询所有主题
+  async selectAllTopic() {
+    const topicData = await this.ctx.conn.query('SELECT * FROM csr_fj_topic');
+    return [ ...topicData ];
+  }
 }
 
 module.exports = TopicService;
