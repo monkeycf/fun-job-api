@@ -44,8 +44,10 @@ class TopicController extends BaseController {
       await this.beginTransaction();
       const { ctx } = this;
       const { query } = ctx;
+      const { topic: topicService } = ctx.service;
 
-      const topicData = await ctx.service.topic.selectTopicById(query.id);
+      const topicData = await topicService.selectTopicById(query);
+      await topicService.insertBrowse(query);
 
       await this.successHandler(helper.toHumpObject(topicData));
     } catch (e) {
