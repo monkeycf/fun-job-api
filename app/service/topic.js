@@ -19,6 +19,13 @@ class TopicService extends Service {
     const topicData = await this.ctx.conn.query('SELECT * FROM csr_fj_topic');
     return [ ...topicData ];
   }
+
+  // 根据topicId查询
+  async selectTopicById(id) {
+    const topicData = await this.ctx.conn.query('SELECT * FROM csr_fj_topic WHERE id = ?;', [ id ]);
+    return topicData[0];
+  }
+
 }
 
 module.exports = TopicService;

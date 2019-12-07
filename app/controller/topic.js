@@ -37,6 +37,21 @@ class TopicController extends BaseController {
       await this.errorHandler(e);
     }
   }
+
+  // 查询根据topicId
+  async selectByTopicId() {
+    try {
+      await this.beginTransaction();
+      const { ctx } = this;
+      const { query } = ctx;
+
+      const topicData = await ctx.service.topic.selectTopicById(query.id);
+
+      await this.successHandler(helper.toHumpObject(topicData));
+    } catch (e) {
+      await this.errorHandler(e);
+    }
+  }
 }
 
 module.exports = TopicController;

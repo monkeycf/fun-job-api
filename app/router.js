@@ -17,4 +17,5 @@ module.exports = app => {
   const { topic: topicController } = controller;
   router.post(`${topicRouter}/create`, topicController.create); // 新增主题
   router.get(`${topicRouter}/select/all`, topicController.selectAll); // 查询所有主题
+  router.get(`${topicRouter}/select/topicId`, topicController.selectByTopicId); // 根据id查询主题
 };
