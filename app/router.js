@@ -5,9 +5,15 @@
  */
 module.exports = app => {
   const { router, controller } = app;
+  const v1Router = '/api/v1';
   // user
-  const userRouter = '/api/v1/user';
+  const userRouter = `${v1Router}/user`;
   const { user: userController } = controller;
   router.post(`${userRouter}/register`, userController.register); // 注册
   router.post(`${userRouter}/login`, userController.login); // 登录
+
+  // topic
+  const topicRouter = `${v1Router}/topic`;
+  const { topic: topicController } = controller;
+  router.post(`${topicRouter}/create`, topicController.create); // 新增主题
 };
