@@ -36,6 +36,12 @@ class TopicService extends Service {
   async updateTopicBrowseCount(topicId) {
     await this.ctx.conn.query('UPDATE csr_fj_topic SET browse_sum = browse_sum + 1 WHERE id = ?;', [ topicId ]);
   }
+
+  // 根据分类查询列表
+  async selectTopicByLabel(labelId) {
+    const topicArray = await this.ctx.conn.query('SELECT * FROM csr_fj_topic WHERE label = ?;', [ labelId ]);
+    return [ ...topicArray ];
+  }
 }
 
 module.exports = TopicService;

@@ -54,6 +54,22 @@ class TopicController extends BaseController {
       await this.errorHandler(e);
     }
   }
+
+  // 根据分类查询列表
+  async selectListByLabel() {
+    try {
+      await this.beginTransaction();
+      const { ctx } = this;
+      const topics = await ctx.service.topic.selectTopicByLabel(ctx.query.labelId);
+      const resultData = [];
+      topics.forEach(topic => {
+        resultData.push(helper.toHumpObject(topic));
+      });
+      await this.successHandler(resultData);
+    } catch (e) {
+      await this.errorHandler(e);
+    }
+  }
 }
 
 module.exports = TopicController;
