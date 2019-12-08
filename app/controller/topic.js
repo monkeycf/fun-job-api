@@ -70,6 +70,22 @@ class TopicController extends BaseController {
       await this.errorHandler(e);
     }
   }
+
+  // 搜索
+  async search() {
+    try {
+      await this.beginTransaction();
+      const { ctx } = this;
+      const topicList = await ctx.service.topic.searchTopic(ctx.query.key);
+      const result = [];
+      topicList.forEach(topic => {
+        result.push(helper.toHumpObject(topic));
+      });
+      await this.successHandler(result);
+    } catch (e) {
+      await this.errorHandler(e);
+    }
+  }
 }
 
 module.exports = TopicController;

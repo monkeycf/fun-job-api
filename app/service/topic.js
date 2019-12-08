@@ -42,6 +42,13 @@ class TopicService extends Service {
     const topicArray = await this.ctx.conn.query('SELECT * FROM csr_fj_topic WHERE label = ?;', [ labelId ]);
     return [ ...topicArray ];
   }
+
+  // 主题搜索
+  async searchTopic(key) {
+    const searchKey = `%${key}%`;
+    const topicArray = await this.ctx.conn.query('SELECT * FROM csr_fj_topic WHERE title LIKE ?;', [ searchKey ]);
+    return [ ...topicArray ];
+  }
 }
 
 module.exports = TopicService;
