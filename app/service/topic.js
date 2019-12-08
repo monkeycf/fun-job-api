@@ -39,15 +39,15 @@ class TopicService extends Service {
 
   // 根据分类查询列表
   async selectTopicByLabel(labelId) {
-    const topicArray = await this.ctx.conn.query('SELECT * FROM csr_fj_topic WHERE label = ?;', [ labelId ]);
-    return [ ...topicArray ];
+    const { app } = this;
+    return await app.query('SELECT * FROM csr_fj_topic WHERE label = ?;', [ labelId ]);
   }
 
   // 主题搜索
   async searchTopic(key) {
+    const { app } = this;
     const searchKey = `%${key}%`;
-    const topicArray = await this.ctx.conn.query('SELECT * FROM csr_fj_topic WHERE title LIKE ?;', [ searchKey ]);
-    return [ ...topicArray ];
+    return await app.query('SELECT * FROM csr_fj_topic WHERE title LIKE ?;', [ searchKey ]);
   }
 
   // 收藏
