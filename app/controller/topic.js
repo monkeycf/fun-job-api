@@ -86,6 +86,18 @@ class TopicController extends BaseController {
       await this.errorHandler(e);
     }
   }
+
+  // 收藏
+  async collect() {
+    try {
+      await this.beginTransaction();
+      const { ctx } = this;
+      await ctx.service.topic.collectTopic(ctx.request.body);
+      await this.successHandler({ msg: 'Collection of success.' });
+    } catch (e) {
+      await this.errorHandler(e);
+    }
+  }
 }
 
 module.exports = TopicController;

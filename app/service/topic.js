@@ -49,6 +49,13 @@ class TopicService extends Service {
     const topicArray = await this.ctx.conn.query('SELECT * FROM csr_fj_topic WHERE title LIKE ?;', [ searchKey ]);
     return [ ...topicArray ];
   }
+
+  // 收藏
+  async collectTopic({ userId, topicId }) {
+    const { conn } = this.ctx;
+    await conn.query('INSERT INTO csr_fj_topic_collect (user_id,topic_id) VALUES(?,?);', [ userId, topicId ]);
+    await conn.query('UPDATE csr_fj_topic SET collect_sum = collect_sum + 1 WHERE id = ?;', [ topicId ]);
+  }
 }
 
 module.exports = TopicService;
