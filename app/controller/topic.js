@@ -98,6 +98,18 @@ class TopicController extends BaseController {
       await this.errorHandler(e);
     }
   }
+
+  // 取消收藏
+  async cancelCollection() {
+    try {
+      await this.beginTransaction();
+      const { ctx } = this;
+      await ctx.service.topic.cancelTopic(ctx.request.body);
+      await this.successHandler({ msg: 'Cancel the collection successfully.' });
+    } catch (e) {
+      await this.errorHandler(e);
+    }
+  }
 }
 
 module.exports = TopicController;

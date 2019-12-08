@@ -20,5 +20,6 @@ module.exports = app => {
   router.get(`${topicRouter}/select/topicId`, topicController.selectByTopicId); // 根据id查询主题
   router.get(`${topicRouter}/select/label`, topicController.selectListByLabel); // 根据分类查询
   router.get(`${topicRouter}/search`, topicController.search); // 主题搜索
-  router.post(`${topicRouter}/collect`, topicController.collect); // 主题搜藏
+  router.post(`${topicRouter}/collect`, topicController.collect); // 主题收藏
+  router.post(`${topicRouter}/cancel/collection`, topicController.cancelCollection); // 主题取消收藏
 };

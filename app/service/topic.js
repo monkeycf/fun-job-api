@@ -56,6 +56,13 @@ class TopicService extends Service {
     await conn.query('INSERT INTO csr_fj_topic_collect (user_id,topic_id) VALUES(?,?);', [ userId, topicId ]);
     await conn.query('UPDATE csr_fj_topic SET collect_sum = collect_sum + 1 WHERE id = ?;', [ topicId ]);
   }
+
+  // 取消收藏
+  async cancelTopic({ userId, topicId }) {
+    const { conn } = this.ctx;
+    await conn.query('UPDATE csr_fj_topic_collect SET collect_status = 1 WHERE user_id= ? AND topic_id = ?;', [ userId, topicId ]);
+    await conn.query('UPDATE csr_fj_topic SET collect_sum = collect_sum - 1 WHERE id = ?;', [ topicId ]);
+  }
 }
 
 module.exports = TopicService;
