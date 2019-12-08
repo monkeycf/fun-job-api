@@ -22,4 +22,9 @@ module.exports = app => {
   router.get(`${topicRouter}/search`, topicController.search); // 主题搜索
   router.post(`${topicRouter}/collect`, topicController.collect); // 主题收藏
   router.post(`${topicRouter}/cancel/collection`, topicController.cancelCollection); // 主题取消收藏
+
+  // note
+  const noteRouter = `${v1Router}/note`;
+  const { note: noteController } = controller;
+  router.post(`${noteRouter}/create`, noteController.create); // 新增笔记
 };
