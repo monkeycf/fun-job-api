@@ -1,8 +1,7 @@
 'use strict';
 
 const BaseController = require('../core/base_controller');
-
-// const helper = require('../public/helper');
+const helper = require('../public/helper');
 
 /**
  * app/controller/note.js
@@ -41,6 +40,22 @@ class NoteController extends BaseController {
       const { ctx } = this;
       await ctx.service.note.deleteNote(ctx.request.body);
       await this.successHandler();
+    } catch (e) {
+      await this.errorHandler(e);
+    }
+  }
+
+  // 查询自己当前主题下的笔记
+  async select() {
+    try {
+      await this.beginTransaction(false);
+      const { ctx } = this;
+      const noteArray = await ctx.service.note.selectOwnNote(ctx.query);
+      const result = [];
+      noteArray.forEach(note => {
+        result.push(helper.toHumpObject(note));
+      });
+      await this.successHandler(result);
     } catch (e) {
       await this.errorHandler(e);
     }

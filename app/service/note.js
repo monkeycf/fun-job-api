@@ -24,6 +24,12 @@ class NoteService extends Service {
     // 状态值修改为1(删除)
     await this.ctx.conn.query('UPDATE csr_fj_topic_note SET note_status = 1 WHERE note_id = ?;', [ noteId ]);
   }
+
+  // 查询当前主题下自己的笔记
+  async selectOwnNote({ topicId, userId }) {
+    const { app } = this;
+    return await app.mysql.query('SELECT * FROM csr_fj_topic_note WHERE topic_id = ? AND user_id = ? AND note_status = 0;', [ topicId, userId ]);
+  }
 }
 
 module.exports = NoteService;

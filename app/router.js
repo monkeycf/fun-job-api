@@ -29,4 +29,5 @@ module.exports = app => {
   router.post(`${noteRouter}/create`, noteController.create); // 新增笔记
   router.post(`${noteRouter}/update`, noteController.update); // 修改笔记
   router.post(`${noteRouter}/delete`, noteController.delete); // 删除笔记
+  router.get(`${noteRouter}/select`, noteController.select); // 查询当前笔记
 };
