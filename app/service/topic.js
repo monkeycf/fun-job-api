@@ -34,9 +34,7 @@ class TopicService extends Service {
 
   // 主题浏览次数累加
   async updateTopicBrowseCount(topicId) {
-    const { conn } = this.ctx;
-    const countArray = await conn.query('SELECT browse_sum as count FROM csr_fj_topic WHERE id = ?;', [ topicId ]);
-    await conn.query('UPDATE csr_fj_topic SET browse_sum = ?  WHERE id = ?;', [ countArray[0].count + 1, topicId ]);
+    await this.ctx.conn.query('UPDATE csr_fj_topic SET browse_sum = browse_sum + 1 WHERE id = ?;', [ topicId ]);
   }
 }
 
