@@ -33,6 +33,18 @@ class NoteController extends BaseController {
       await this.errorHandler(e);
     }
   }
+
+  // 删除笔记
+  async delete() {
+    try {
+      await this.beginTransaction();
+      const { ctx } = this;
+      await ctx.service.note.deleteNote(ctx.request.body);
+      await this.successHandler();
+    } catch (e) {
+      await this.errorHandler(e);
+    }
+  }
 }
 
 module.exports = NoteController;

@@ -18,6 +18,12 @@ class NoteService extends Service {
   async updateNote({ noteId, content }) {
     await this.ctx.conn.query('UPDATE csr_fj_topic_note SET content = ? WHERE note_id = ?;', [ content, noteId ]);
   }
+
+  // 删除笔记
+  async deleteNote({ noteId }) {
+    // 状态值修改为1(删除)
+    await this.ctx.conn.query('UPDATE csr_fj_topic_note SET note_status = 1 WHERE note_id = ?;', [ noteId ]);
+  }
 }
 
 module.exports = NoteService;
