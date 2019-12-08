@@ -27,4 +27,5 @@ module.exports = app => {
   const noteRouter = `${v1Router}/note`;
   const { note: noteController } = controller;
   router.post(`${noteRouter}/create`, noteController.create); // 新增笔记
+  router.post(`${noteRouter}/update`, noteController.update); // 修改笔记
 };
