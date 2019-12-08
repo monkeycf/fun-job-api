@@ -26,7 +26,7 @@ class TopicController extends BaseController {
   // 查询所有主题
   async selectAll() {
     try {
-      await this.beginTransaction();
+      await this.beginTransaction(false);
       const topicArray = await this.ctx.service.topic.selectAllTopic();
       const res = [];
       topicArray.forEach(topic => {
@@ -58,7 +58,7 @@ class TopicController extends BaseController {
   // 根据分类查询列表
   async selectListByLabel() {
     try {
-      await this.beginTransaction();
+      await this.beginTransaction(false);
       const { ctx } = this;
       const topics = await ctx.service.topic.selectTopicByLabel(ctx.query.labelId);
       const resultData = [];
@@ -74,7 +74,7 @@ class TopicController extends BaseController {
   // 搜索
   async search() {
     try {
-      await this.beginTransaction();
+      await this.beginTransaction(false);
       const { ctx } = this;
       const topicList = await ctx.service.topic.searchTopic(ctx.query.key);
       const result = [];

@@ -8,13 +8,18 @@ const { Controller } = require('egg');
  * 2019/12/06
  */
 class BaseController extends Controller {
-  async beginTransaction() {
-    this.ctx.conn = await this.app.mysql.beginTransaction();
+  async beginTransaction(flag = true) {
+    if (flag) {
+      this.ctx.conn = await this.app.mysql.beginTransaction();
+    }
+    this.ctx.connFlag = flag;
   }
 
   async successHandler(data) {
     const { ctx } = this;
-    await ctx.conn.commit();
+    if (ctx.connFlag) {
+      await ctx.conn.commit();
+    }
     ctx.body = {
       code: 1,
       data,
@@ -23,7 +28,9 @@ class BaseController extends Controller {
 
   async errorHandler(msg) {
     const { ctx } = this;
-    await ctx.conn.rollback();
+    if (ctx.connFlag) {
+      await ctx.conn.rollback();
+    }
     ctx.body = {
       code: -1,
       msg,
