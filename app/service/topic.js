@@ -45,9 +45,9 @@ class TopicService extends Service {
 
   // 主题搜索
   async searchTopic(key) {
-    const { app } = this;
+    const { mysql } = this.app;
     const searchKey = `%${key}%`;
-    return await app.query('SELECT * FROM csr_fj_topic WHERE title LIKE ?;', [ searchKey ]);
+    return await mysql.query('SELECT * FROM csr_fj_topic WHERE title LIKE ?;', [ searchKey ]);
   }
 
   // 收藏
