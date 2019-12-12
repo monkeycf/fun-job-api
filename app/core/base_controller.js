@@ -23,17 +23,19 @@ class BaseController extends Controller {
     ctx.body = {
       code: 1,
       data,
+      msg: '',
     };
   }
 
-  async errorHandler(data) {
+  async errorHandler(msg) {
     const { ctx } = this;
     if (ctx.connFlag) {
       await ctx.conn.rollback();
     }
     ctx.body = {
       code: -1,
-      data,
+      data: {},
+      msg,
     };
   }
 
