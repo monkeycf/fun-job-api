@@ -39,8 +39,8 @@ class TopicService extends Service {
 
   // 根据分类查询列表
   async selectTopicByLabel(labelId) {
-    const { app } = this;
-    return await app.query('SELECT * FROM csr_fj_topic WHERE label = ?;', [ labelId ]);
+    const { mysql } = this.app;
+    return await mysql.query('SELECT * FROM csr_fj_topic WHERE label = ?;', [ labelId ]);
   }
 
   // 主题搜索
