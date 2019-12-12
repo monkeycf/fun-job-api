@@ -16,7 +16,7 @@ class TopicService extends Service {
 
   // 查询所有主题
   async selectAllTopic() {
-    const topicData = await this.ctx.conn.query('SELECT * FROM csr_fj_topic');
+    const topicData = await this.app.mysql.query('SELECT * FROM csr_fj_topic');
     return [ ...topicData ];
   }
 
