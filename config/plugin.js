@@ -14,4 +14,7 @@ module.exports = {
     enable: true,
     package: 'egg-cors',
   },
+  logview: {
+    package: 'egg-logview',
+  },
 };

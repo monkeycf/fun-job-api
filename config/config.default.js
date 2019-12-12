@@ -63,5 +63,6 @@ module.exports = appInfo => {
     ...config,
     ...userConfig,
     ...mysqlConfig,
+    logview: {},
   };
 };
