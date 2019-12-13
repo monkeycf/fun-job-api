@@ -27,7 +27,7 @@ class NoteController extends BaseController {
       await this.beginTransaction();
       const { ctx } = this;
       await ctx.service.note.updateNote(ctx.request.body);
-      await this.successHandler();
+      await this.successHandler({ msg: 'update succeed.' });
     } catch (e) {
       await this.errorHandler(e);
     }
@@ -39,7 +39,7 @@ class NoteController extends BaseController {
       await this.beginTransaction();
       const { ctx } = this;
       await ctx.service.note.deleteNote(ctx.request.body);
-      await this.successHandler();
+      await this.successHandler({ msg: 'delete succeed.' });
     } catch (e) {
       await this.errorHandler(e);
     }
