@@ -30,4 +30,9 @@ module.exports = app => {
   router.post(`${noteRouter}/update`, noteController.update); // 修改笔记
   router.post(`${noteRouter}/delete`, noteController.delete); // 删除笔记
   router.get(`${noteRouter}/select`, noteController.select); // 查询当前笔记
+
+  // learn
+  const learnRouter = `${v1Router}/learn`;
+  const { learn: learnController } = controller;
+  router.get(`${learnRouter}/get/modules`, learnController.getModules); // 获取模块
 };
