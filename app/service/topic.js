@@ -9,8 +9,8 @@ const Service = require('egg').Service;
  */
 class TopicService extends Service {
   // 新增主题
-  async insertTopic({ title, complexity, releaseUser, label }) {
-    const data = await this.ctx.conn.query('INSERT csr_fj_topic (title,complexity,release_user,label) VALUES (?,?,?,?);', [ title, complexity, releaseUser, label ]);
+  async insertTopic({ title, complexity, releaseUser, label, url }) {
+    const data = await this.ctx.conn.query('INSERT csr_fj_topic (title,complexity,release_user,label,answer_url) VALUES (?,?,?,?,?);', [ title, complexity, releaseUser, label, url ]);
     return { topicId: data.insertId };
   }
 
