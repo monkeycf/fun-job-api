@@ -55,6 +55,8 @@ class NoteController extends BaseController {
       noteArray.forEach(note => {
         if (note.pictures) {
           note.pictures = note.pictures.split('&&&');
+        } else {
+          note.pictures = [];
         }
         result.push(helper.toHumpObject(note));
       });
