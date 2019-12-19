@@ -14,13 +14,13 @@ class LearnController extends BaseController {
       await this.beginTransaction(false);
       const { ctx } = this;
       const data = await ctx.service.learn.searchModules();
-
-      const { index = 0 } = ctx.query;
-      const result = [];
+      let result = [];
       data.forEach(item => {
-        item.title += index;
         result.push(helper.toHumpObject(item));
       });
+      for (let i = 0; i < 3; i++) {
+        result = result.concat(result);
+      }
 
       await this.successHandler(result);
     } catch (e) {
