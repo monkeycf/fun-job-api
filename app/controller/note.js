@@ -53,6 +53,9 @@ class NoteController extends BaseController {
       const noteArray = await ctx.service.note.selectOwnNote(ctx.query);
       const result = [];
       noteArray.forEach(note => {
+        if (note.pictures) {
+          note.pictures = note.pictures.split('&&&');
+        }
         result.push(helper.toHumpObject(note));
       });
       await this.successHandler(result);
