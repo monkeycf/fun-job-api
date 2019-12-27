@@ -110,6 +110,22 @@ class TopicController extends BaseController {
       await this.errorHandler(e);
     }
   }
+
+  // 收藏状态
+  async collectStatus() {
+    try {
+      await this.beginTransaction(false);
+      const { ctx } = this;
+      const count = await ctx.service.topic.getCollectStatus(ctx.query);
+      let status = -1;
+      if (count > 0) {
+        status = 1;
+      }
+      await this.successHandler(helper.toHumpObject({ status }));
+    } catch (e) {
+      await this.errorHandler(e);
+    }
+  }
 }
 
 module.exports = TopicController;

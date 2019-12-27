@@ -63,6 +63,12 @@ class TopicService extends Service {
     await conn.query('UPDATE csr_fj_topic_collect SET collect_status = 1 WHERE user_id= ? AND topic_id = ?;', [ userId, topicId ]);
     await conn.query('UPDATE csr_fj_topic SET collect_sum = collect_sum - 1 WHERE id = ?;', [ topicId ]);
   }
+
+  // 收藏状态
+  async getCollectStatus({ userId, topicId }) {
+    const counts = await this.app.mysql.query('SELECT COUNT(*) as count FROM csr_fj_topic_collect WHERE user_id = ? AND topic_id = ?;', [ userId, topicId ]);
+    return counts[0].count;
+  }
 }
 
 module.exports = TopicService;

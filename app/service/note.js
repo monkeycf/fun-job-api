@@ -9,8 +9,8 @@ const Service = require('egg').Service;
  */
 class NoteService extends Service {
   // 创建note
-  async createNote({ userId, topicId, content, pictures }) {
-    const data = await this.ctx.conn.query('INSERT INTO csr_fj_topic_note (user_id,topic_id,content,pictures)VALUES (?,?,?,?);', [ userId, topicId, content, pictures.join('&&&') ]);
+  async createNote({ userId, topicId, content, pictures, weather }) {
+    const data = await this.ctx.conn.query('INSERT INTO csr_fj_topic_note (user_id,topic_id,content,pictures,weather)VALUES (?,?,?,?,?);', [ userId, topicId, content, pictures.join('&&&'), weather ]);
     return data.insertId;
   }
 
