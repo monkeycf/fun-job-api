@@ -49,6 +49,15 @@ class TopicController extends BaseController {
       const topicData = await topicService.selectTopicById(query);
       await topicService.insertBrowse(query);
 
+      const BROWSE_SUM_MULTIPLE = 17;
+      const COLLECT_SUN_MULTIPLE = 11;
+
+      if (topicData.collect_sum < 0) {
+        topicData.collect_sum = 0;
+      } else {
+        topicData.collect_sum *= COLLECT_SUN_MULTIPLE; // 收藏数11倍显示
+      }
+      topicData.browse_sum *= BROWSE_SUM_MULTIPLE; // 浏览数17倍显示
       await this.successHandler(helper.toHumpObject(topicData));
     } catch (e) {
       await this.errorHandler(e);
