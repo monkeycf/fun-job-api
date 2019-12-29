@@ -6,6 +6,7 @@
  * 2019/12/06
  */
 
+const moment = require('moment');
 
 // 下划线转换驼峰
 const toHump = line => line.replace(/_(\w)/g, (a, l) => l.toUpperCase());
@@ -46,5 +47,14 @@ module.exports = {
     }
     obj = null;
     return newObj;
+  },
+  /** *
+   * 格式化时间
+   * @param {string|Date} date 需要格式化的时间
+   * @return {string} 格式化后的日期字符串
+   */
+  formatMoment(date) {
+    return moment(date)
+      .format('YYYY/MM/DD HH:mm:ss dddd');
   },
 };

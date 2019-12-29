@@ -58,6 +58,10 @@ class TopicController extends BaseController {
         topicData.collect_sum *= COLLECT_SUN_MULTIPLE; // 收藏数11倍显示
       }
       topicData.browse_sum *= BROWSE_SUM_MULTIPLE; // 浏览数17倍显示
+
+      topicData.create_time = helper.formatMoment(topicData.create_time);
+      topicData.last_modification_time = helper.formatMoment(topicData.last_modification_time);
+
       await this.successHandler(helper.toHumpObject(topicData));
     } catch (e) {
       await this.errorHandler(e);
