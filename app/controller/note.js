@@ -58,6 +58,7 @@ class NoteController extends BaseController {
         } else {
           note.pictures = [];
         }
+        note.create_time = helper.formatMoment(note.create_time);
         result.push(helper.toHumpObject(note));
       });
       await this.successHandler(result);
