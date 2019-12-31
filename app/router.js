@@ -11,6 +11,7 @@ module.exports = app => {
   const { user: userController } = controller;
   router.post(`${userRouter}/register`, userController.register); // 注册
   router.post(`${userRouter}/login`, userController.login); // 登录
+  router.get(`${userRouter}/info`, userController.selectInfo);// 查询用户信息
 
   // topic
   const topicRouter = `${v1Router}/topic`;

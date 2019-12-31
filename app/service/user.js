@@ -39,11 +39,17 @@ class UserService extends Service {
 
   // 验证登录密码
   async loginByPassword({ phone, pwd }) {
-    const userInfo = await this.ctx.conn.query('SELECT * FROM csr_fj_user WHERE `phone` = ? AND `password` = ?;', [ phone, pwd ]);
+    const userInfo = await this.ctx.conn.query('SELECT id,username,head_portrait_url,intro,phone,create_time,lats_modification_time FROM csr_fj_user WHERE `phone` = ? AND `password` = ?;', [ phone, pwd ]);
     if (userInfo.length === 0) {
       throw '用户手机号或密码错误';
     }
     return userInfo[0];
+  }
+
+  // 查询用户信息
+  async selectUserInfo({ userId }) {
+    const result = await this.app.mysql.query('SELECT id,username,head_portrait_url,intro,phone,create_time,lats_modification_time FROM csr_fj_user WHERE id = ?;', [ userId ]);
+    return result[0];
   }
 }
 

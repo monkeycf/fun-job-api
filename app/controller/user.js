@@ -42,6 +42,18 @@ class UserController extends BaseController {
       await this.errorHandler(e);
     }
   }
+
+  // 查询用户信息
+  async selectInfo() {
+    try {
+      await this.beginTransaction(false);
+      const { ctx } = this;
+      const userInfo = await ctx.service.user.selectUserInfo(ctx.query);
+      await this.successHandler(helper.toHumpObject({ ...userInfo }));
+    } catch (e) {
+      await this.errorHandler(e);
+    }
+  }
 }
 
 module.exports = UserController;
