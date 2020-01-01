@@ -48,8 +48,12 @@ class UserController extends BaseController {
     try {
       await this.beginTransaction(false);
       const { ctx } = this;
-      const userInfo = await ctx.service.user.selectUserInfo(ctx.query);
-      await this.successHandler(helper.toHumpObject({ ...userInfo }));
+      const { user } = ctx.service;
+      const { query } = ctx;
+      const userInfo = await user.selectUserInfo(query);
+      const collect = await user.selectCollectCount(query);
+      const note = await user.selectNoteCount(query);
+      await this.successHandler(helper.toHumpObject({ ...userInfo, ...collect, ...note }));
     } catch (e) {
       await this.errorHandler(e);
     }

@@ -46,10 +46,20 @@ class UserService extends Service {
     return userInfo[0];
   }
 
-  // 查询用户信息
+  // 查询用户信息q
   async selectUserInfo({ userId }) {
     const result = await this.app.mysql.query('SELECT id,username,head_portrait_url,intro,phone,create_time,lats_modification_time FROM csr_fj_user WHERE id = ?;', [ userId ]);
-    return result[0];
+    return { ...result[0] };
+  }
+
+  async selectCollectCount({ userId }) {
+    const collectResult = await this.app.mysql.query('SELECT COUNT( DISTINCT topic_id ) as collect_count FROM csr_fj_topic_collect WHERE user_id = ?;', [ userId ]);
+    return { ...collectResult[0] };
+  }
+
+  async selectNoteCount({ userId }) {
+    const noteResult = await this.app.mysql.query('SELECT COUNT( * ) as note_count FROM csr_fj_topic_note WHERE user_id = ? AND note_status = 0;', [ userId ]);
+    return { ...noteResult[0] };
   }
 }
 
