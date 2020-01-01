@@ -69,6 +69,12 @@ class TopicService extends Service {
     const counts = await this.app.mysql.query('SELECT COUNT(*) as count FROM csr_fj_topic_collect WHERE user_id = ? AND topic_id = ?;', [ userId, topicId ]);
     return counts[0].count;
   }
+
+  // 查询用户的收藏
+  async selectCollectTopic({ userId }) {
+    const result = await this.app.mysql.query('SELECT id,title,content,complexity,create_time,answer_url FROM csr_fj_topic WHERE csr_fj_topic.id = (SELECT DISTINCT topic_id FROM csr_fj_topic_collect WHERE collect_status = 0 AND user_id = ?); ', [ userId ]);
+    return result[0];
+  }
 }
 
 module.exports = TopicService;

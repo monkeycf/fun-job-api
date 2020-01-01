@@ -24,6 +24,7 @@ module.exports = app => {
   router.get(`${topicRouter}/collect/status`, topicController.collectStatus); // 收藏状态
   router.post(`${topicRouter}/collect`, topicController.collect); // 主题收藏
   router.post(`${topicRouter}/cancel/collection`, topicController.cancelCollection); // 主题取消收藏
+  router.get(`${topicRouter}/collect/list`, topicController.selectTopicByUser);// 查询收藏列表
 
   // note
   const noteRouter = `${v1Router}/note`;

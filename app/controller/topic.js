@@ -76,6 +76,7 @@ class TopicController extends BaseController {
       const topics = await ctx.service.topic.selectTopicByLabel(ctx.query.labelId);
       const resultData = [];
       topics.forEach(topic => {
+        topic.create_time = helper.formatMoment(topic.create_time);
         resultData.push(helper.toHumpObject(topic));
       });
       await this.successHandler(resultData);
@@ -135,6 +136,18 @@ class TopicController extends BaseController {
         status = 1;
       }
       await this.successHandler(helper.toHumpObject({ status }));
+    } catch (e) {
+      await this.errorHandler(e);
+    }
+  }
+
+  // 根据用户查询收藏
+  async selectTopicByUser() {
+    try {
+      await this.beginTransaction(false);
+      const { ctx } = this;
+      const collectList = await ctx.service.topic.selectCollectTopic(ctx.query);
+      await this.successHandler(helper.toHumpObject({ collectList }));
     } catch (e) {
       await this.errorHandler(e);
     }
