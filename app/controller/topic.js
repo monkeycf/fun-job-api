@@ -144,10 +144,19 @@ class TopicController extends BaseController {
   // 根据用户查询收藏
   async selectTopicByUser() {
     try {
-      await this.beginTransaction(false);
+      await this.beginTransaction();
       const { ctx } = this;
-      const collectList = await ctx.service.topic.selectCollectTopic(ctx.query);
-      await this.successHandler(helper.toHumpObject({ collectList }));
+      const { topic } = ctx.service;
+      const collectDateList = [];
+
+      const collectIdList = await topic.selectCollectTopic(ctx.query);
+      for await (const topicItem of collectIdList) {
+        const topicData = await topic.selectTopicById({ topicId: topicItem.topic_id });
+        topicData.create_time = helper.formatMoment(topicData.create_time);
+        topicData.last_modification_time = helper.formatMoment(topicData.last_modification_time);
+        collectDateList.push(helper.toHumpObject({ ...topicData }));
+      }
+      await this.successHandler(collectDateList);
     } catch (e) {
       await this.errorHandler(e);
     }
